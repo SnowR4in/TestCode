@@ -21,7 +21,7 @@ jobs:
 
     - name: Auth
 
-      run: .ngrokngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+      run: .ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
 
       env:
 
@@ -29,14 +29,14 @@ jobs:
 
     - name: Enable TS
 
-      run: Set-ItemProperty -Path 'HKLM:SystemCurrentControlSetControlTerminal Server'-name "fDenyTSConnections" -Value 0
+      run: Set-ItemProperty -Path 'HKLM:System\Current\ControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
 
     - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
-    - run: Set-ItemProperty -Path 'HKLM:SystemCurrentControlSetControlTerminal ServerWinStationsRDP-Tcp' -name "UserAuthentication" -Value 1
+    - run: Set-ItemProperty -Path 'HKLM:System\CurrentControl\SetControlTerminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
 
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "P@ssw0rd!" -Force)
 
     - name: Create Tunnel
 
-      run: .ngrokngrok.exe tcp 3389
+      run: .ngrok\kngrok.exe tcp 3389
